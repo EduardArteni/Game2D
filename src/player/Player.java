@@ -11,7 +11,7 @@ public class Player {
 
     public Player(Game game) {
         this.game = game;
-        this.position = new Point(100, 100);
+        this.position = new Point(0, 0);
         this.screenPosition = new Point(game.getScreenDimension().width / 2, game.getScreenDimension().height / 2);
     }
 
@@ -31,7 +31,7 @@ public class Player {
     }
 
     public void draw(Graphics2D g) {
-        g.drawRect(screenPosition.x - 48 / 2, screenPosition.y - 48 / 2, 48, 48);
+        g.drawRect(screenPosition.x - (game.getTileSize() ) / 2, screenPosition.y - (game.getTileSize() ) / 2, game.getTileSize() , game.getTileSize() );
     }
 
     public Point getPosition() {

@@ -32,12 +32,13 @@ public class TileHandler {
 
             int worldX = worldCol * game.getTileSize();
             int worldY = worldRow * game.getTileSize();
-            int screenX = worldX - game.player.getPosition().x + game.getScreenDimension().width / 2;
-            int screenY = worldY - game.player.getPosition().y + game.getScreenDimension().height / 2;
+
+            int screenX = (worldX - game.getFov() * game.player.getPosition().x  + game.getScreenDimension().width / 2) ;
+            int screenY = (worldY - game.getFov() * game.player.getPosition().y  + game.getScreenDimension().height / 2) ;
 
 
-            if (worldX + game.getTileSize() > game.player.getPosition().x - game.getScreenDimension().width / 2 && worldX - game.getTileSize() < game.player.getPosition().x + game.getScreenDimension().width / 2 && worldY + game.getTileSize() > game.player.getPosition().y - game.getScreenDimension().height / 2 && worldY - game.getTileSize() < game.player.getPosition().y + game.getScreenDimension().height / 2) {
-                g.drawImage(tiles[tileNum].getImage(), screenX, screenY, game.getTileSize(), game.getTileSize(), null);
+            if (worldX  + game.getTileSize()  > (game.getFov() * game.player.getPosition().x - game.getScreenDimension().width / 2)  && worldX  - game.getTileSize()  < (game.getFov() * game.player.getPosition().x + game.getScreenDimension().width / 2)  && worldY  + game.getTileSize()  > (game.getFov() * game.player.getPosition().y - game.getScreenDimension().height / 2)  && worldY  - game.getTileSize()  < (game.getFov() * game.player.getPosition().y + game.getScreenDimension().height / 2) ) {
+                g.drawImage(tiles[tileNum].getImage(), screenX, screenY, game.getTileSize() , game.getTileSize() , null);
             }
             worldCol++;
 

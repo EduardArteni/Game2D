@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Game {
-    private final int tileSize;
+    private final int tileSize = 16;
     private final int maxWorldCol;
     private final int maxWorldRow;
     private final int map[][];
@@ -23,9 +23,10 @@ public class Game {
     public KeyHandler keyHandler;
     private Thread engineThread;
     private Thread panelThread;
+    private int fov;
 
-    public Game(int tileSize, int maxWorldCol, int maxWorldRow, int fps, int ups) {
-        this.tileSize = tileSize;
+    public Game(int fov, int maxWorldCol, int maxWorldRow, int fps, int ups) {
+        this.fov = fov;
         this.maxWorldCol = maxWorldCol;
         this.maxWorldRow = maxWorldRow;
         this.fps = fps;
@@ -45,7 +46,7 @@ public class Game {
     }
 
     public int getTileSize() {
-        return tileSize;
+        return tileSize * getFov();
     }
 
     public int[][] getMap() {
@@ -74,6 +75,10 @@ public class Game {
 
     public int getUps() {
         return ups;
+    }
+
+    public int getFov() {
+        return fov;
     }
 
     private void createWindow() {
