@@ -31,7 +31,7 @@ public class Player {
     }
 
     public void draw(Graphics2D g) {
-        g.drawRect(screenPosition.x - (game.getTileSize() ) / 2, screenPosition.y - (game.getTileSize() ) / 2, game.getTileSize() , game.getTileSize() );
+        g.drawRoundRect(screenPosition.x - (game.getTileSize()) / 2, screenPosition.y - (game.getTileSize()) / 2, game.getTileSize(), game.getTileSize(), 10, 10);
     }
 
     public Point getPosition() {

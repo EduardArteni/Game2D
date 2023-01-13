@@ -1,13 +1,16 @@
 package game;
 
+import entity.Entity;
 import input.KeyHandler;
 import player.Player;
 import tile.TileHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Game {
+    public ArrayList<Entity> entities = new ArrayList<>();
     private final int tileSize = 16;
     private final int maxWorldCol;
     private final int maxWorldRow;

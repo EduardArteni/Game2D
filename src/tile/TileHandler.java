@@ -24,27 +24,13 @@ public class TileHandler {
     }
 
     public void draw(Graphics2D g) {
-        int worldCol = 0;
-        int worldRow = 0;
-
-        while (worldCol < game.getMaxWorldCol() && worldRow < game.getMaxWorldRow()) {
-            int tileNum = game.getMap()[worldCol][worldRow];
-
-            int worldX = worldCol * game.getTileSize();
-            int worldY = worldRow * game.getTileSize();
-
-            int screenX = (worldX - game.getFov() * game.player.getPosition().x  + game.getScreenDimension().width / 2) ;
-            int screenY = (worldY - game.getFov() * game.player.getPosition().y  + game.getScreenDimension().height / 2) ;
-
-
-            if (worldX  + game.getTileSize()  > (game.getFov() * game.player.getPosition().x - game.getScreenDimension().width / 2)  && worldX  - game.getTileSize()  < (game.getFov() * game.player.getPosition().x + game.getScreenDimension().width / 2)  && worldY  + game.getTileSize()  > (game.getFov() * game.player.getPosition().y - game.getScreenDimension().height / 2)  && worldY  - game.getTileSize()  < (game.getFov() * game.player.getPosition().y + game.getScreenDimension().height / 2) ) {
-                g.drawImage(tiles[tileNum].getImage(), screenX, screenY, game.getTileSize() , game.getTileSize() , null);
-            }
-            worldCol++;
-
-            if (worldCol == game.getMaxWorldCol()) {
-                worldCol = 0;
-                worldRow++;
+        //col  row
+        for (int col = 0; col < game.getMaxWorldCol(); col++) {
+            for (int row = 0; row < game.getMaxWorldRow(); row++) {
+                Tile tile = tiles[game.getMap()[col][row]];
+                Point worldPos = new Point(col * game.getTileSize() + game.getTileSize() / 2, row * game.getTileSize() + game.getTileSize() / 2);
+                Point screenPos = new Point(worldPos.x - game.player.getPosition().x + game.getScreenDimension().width / 2, worldPos.y - game.player.getPosition().y + game.getScreenDimension().height / 2);
+                g.drawRect(screenPos.x, screenPos.y, game.getTileSize(), game.getTileSize());
             }
         }
     }

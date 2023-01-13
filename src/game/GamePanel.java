@@ -1,5 +1,7 @@
 package game;
 
+import entity.Entity;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -35,7 +37,11 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         try {
             game.tileHandler.draw(g2);
+            for (Entity e : game.entities) {
+                e.draw(g2);
+            }
             game.player.draw(g2);
+
         } catch (Exception e) {
             System.out.println("Tried drawing we failed");
         }
