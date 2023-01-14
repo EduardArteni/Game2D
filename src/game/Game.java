@@ -54,7 +54,6 @@ public class Game {
         this.gamePanel = new GamePanel(this);
         this.gameEngine = new GameEngine(this);
 
-        server = new Server();
         client = new Client("localhost");
 
         map = loadMap("");
@@ -67,6 +66,7 @@ public class Game {
     public void startNetThreads(boolean isServer) {
         clientThread = new Thread(client);
         if (isServer) {
+            server = new Server();
             serverThread = new Thread(server);
             serverThread.start();
         }
