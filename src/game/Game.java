@@ -2,6 +2,9 @@ package game;
 
 import entity.Entity;
 import input.KeyHandler;
+import net.Client;
+import net.Ping;
+import net.Server;
 import player.Player;
 import tile.TileHandler;
 
@@ -10,7 +13,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Game {
-    public ArrayList<Entity> entities = new ArrayList<>();
     private final int tileSize = 16;
     private final int maxWorldCol;
     private final int maxWorldRow;
@@ -18,14 +20,23 @@ public class Game {
     private final int fps;
     private final int ups;
     private final Dimension screenDimension;
+    public ArrayList<Entity> entities = new ArrayList<>();
     public Player player;
     public TileHandler tileHandler;
+    public KeyHandler keyHandler;
+    public Client client;
+    public Server server;
+    public int currentFps;
+    public int currentUps;
     private JFrame window;
     private GameEngine gameEngine;
+    private Ping ping;
     private GamePanel gamePanel;
-    public KeyHandler keyHandler;
+    private Thread clientThread;
+    private Thread serverThread;
     private Thread engineThread;
     private Thread panelThread;
+    private Thread pingThread;
     private int fov;
 
     public Game(int fov, int maxWorldCol, int maxWorldRow, int fps, int ups) {
@@ -34,6 +45,8 @@ public class Game {
         this.maxWorldRow = maxWorldRow;
         this.fps = fps;
         this.ups = ups;
+        this.currentFps = fps;
+        this.currentUps = ups;
         this.screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 
         this.keyHandler = new KeyHandler();
@@ -41,11 +54,26 @@ public class Game {
         this.gamePanel = new GamePanel(this);
         this.gameEngine = new GameEngine(this);
 
+        server = new Server();
+        client = new Client("localhost");
+
         map = loadMap("");
         player = new Player(this);
 
         createWindow();
         startGameThread();
+    }
+
+    public void startNetThreads(boolean isServer) {
+        clientThread = new Thread(client);
+        if (isServer) {
+            serverThread = new Thread(server);
+            serverThread.start();
+        }
+        clientThread.start();
+        ping = new Ping(this);
+        pingThread = new Thread(ping);
+        pingThread.start();
     }
 
     public int getTileSize() {

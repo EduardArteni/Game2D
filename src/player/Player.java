@@ -17,21 +17,21 @@ public class Player {
 
     public void update() {
         if (game.keyHandler.upPressed) {
-            this.position.y -= 4;
+            this.position.y -= 2 * (120 / game.currentUps);
         }
         if (game.keyHandler.downPressed) {
-            this.position.y += 4;
+            this.position.y += 2 * (120 / game.currentUps);
         }
         if (game.keyHandler.rightPressed) {
-            this.position.x += 4;
+            this.position.x += 2 * (120 / game.currentUps);
         }
         if (game.keyHandler.leftPressed) {
-            this.position.x -= 4;
+            this.position.x -= 2 * (120 / game.currentUps);
         }
     }
 
     public void draw(Graphics2D g) {
-        g.drawRoundRect(screenPosition.x - (game.getTileSize()) / 2, screenPosition.y - (game.getTileSize()) / 2, game.getTileSize(), game.getTileSize(), 10, 10);
+        g.drawRoundRect(screenPosition.x - (game.getTileSize()) / 2, screenPosition.y - (game.getTileSize()) / 2, game.getTileSize(), game.getTileSize(), game.getTileSize() / 2, game.getTileSize() / 2);
     }
 
     public Point getPosition() {

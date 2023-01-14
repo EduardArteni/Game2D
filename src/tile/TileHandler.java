@@ -29,7 +29,7 @@ public class TileHandler {
             for (int row = 0; row < game.getMaxWorldRow(); row++) {
                 Tile tile = tiles[game.getMap()[col][row]];
                 Point worldPos = new Point(col * game.getTileSize() + game.getTileSize() / 2, row * game.getTileSize() + game.getTileSize() / 2);
-                Point screenPos = new Point(worldPos.x - game.player.getPosition().x + game.getScreenDimension().width / 2, worldPos.y - game.player.getPosition().y + game.getScreenDimension().height / 2);
+                Point screenPos = new Point(worldPos.x - game.player.getPosition().x * game.getFov() + game.getScreenDimension().width / 2, worldPos.y - game.player.getPosition().y * game.getFov() + game.getScreenDimension().height / 2);
                 g.drawRect(screenPos.x, screenPos.y, game.getTileSize(), game.getTileSize());
             }
         }
