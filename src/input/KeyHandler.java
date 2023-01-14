@@ -1,14 +1,29 @@
 package input;
 
+import game.Game;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    public boolean upPressed, downPressed, rightPressed, leftPressed, ePressed;
+    public boolean upPressed, downPressed, rightPressed, leftPressed, f1pressed;
+    private Game game;
+
+    public KeyHandler(Game game) {
+        this.game = game;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
+        int code = e.getKeyChar();
 
+        if (code == 101) {
+            game.fov += 1;
+        }
+        if (code == 113) {
+            if (game.getFov() > 1)
+                game.fov -= 1;
+        }
     }
 
     @Override
@@ -27,8 +42,8 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
         }
-        if (code == KeyEvent.VK_E) {
-            ePressed = true;
+        if (code == KeyEvent.VK_F1) {
+            f1pressed = true;
         }
     }
 
@@ -48,8 +63,8 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
         }
-        if (code == KeyEvent.VK_E) {
-            ePressed = false;
+        if (code == KeyEvent.VK_F1) {
+            f1pressed = false;
         }
     }
 }

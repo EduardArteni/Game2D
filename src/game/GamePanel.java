@@ -50,9 +50,14 @@ public class GamePanel extends JPanel implements Runnable {
                 e.draw(g2);
             }
             game.player.draw(g2);
-            g.drawString(String.valueOf(game.client.ping), 0, 12);
-            g.drawString(String.valueOf(game.currentFps), 0, 24);
-            g.drawString(String.valueOf(game.currentUps), 0, 36);
+            if (game.keyHandler.f1pressed) {
+                g.drawString("ping " + game.client.ping, 0, 12);
+                g.drawString("fps " + game.currentFps, 0, 24);
+                g.drawString("ups " + game.currentUps, 0, 36);
+                g.drawString("fov " + game.getFov(), 0, 48);
+                g.drawString("x " + game.player.getPosition().x, 0, 60);
+                g.drawString("y " + game.player.getPosition().y, 0, 72);
+            }
 
         } catch (Exception e) {
             System.out.println("Tried drawing we failed");

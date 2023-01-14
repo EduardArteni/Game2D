@@ -37,7 +37,7 @@ public class Game {
     private Thread engineThread;
     private Thread panelThread;
     private Thread pingThread;
-    private int fov;
+    public int fov;
 
     public Game(int fov, int maxWorldCol, int maxWorldRow, int fps, int ups) {
         this.fov = fov;
@@ -49,7 +49,7 @@ public class Game {
         this.currentUps = ups;
         this.screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 
-        this.keyHandler = new KeyHandler();
+        this.keyHandler = new KeyHandler(this);
         this.tileHandler = new TileHandler(this);
         this.gamePanel = new GamePanel(this);
         this.gameEngine = new GameEngine(this);

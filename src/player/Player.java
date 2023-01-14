@@ -7,7 +7,7 @@ import java.awt.*;
 public class Player {
     private Game game;
     private Point position;
-    private Point screenPosition;
+    public Point screenPosition;
 
     public Player(Game game) {
         this.game = game;
@@ -17,16 +17,16 @@ public class Player {
 
     public void update() {
         if (game.keyHandler.upPressed) {
-            this.position.y -= 2 * (120 / game.currentUps);
+            this.position.y -= 1 * (120 / game.currentUps);
         }
         if (game.keyHandler.downPressed) {
-            this.position.y += 2 * (120 / game.currentUps);
+            this.position.y += 1 * (120 / game.currentUps);
         }
         if (game.keyHandler.rightPressed) {
-            this.position.x += 2 * (120 / game.currentUps);
+            this.position.x += 1 * (120 / game.currentUps);
         }
         if (game.keyHandler.leftPressed) {
-            this.position.x -= 2 * (120 / game.currentUps);
+            this.position.x -= 1 * (120 / game.currentUps);
         }
     }
 
