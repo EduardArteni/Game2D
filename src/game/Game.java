@@ -28,6 +28,7 @@ public class Game {
     public Server server;
     public int currentFps;
     public int currentUps;
+    public int fov;
     private JFrame window;
     private GameEngine gameEngine;
     private Ping ping;
@@ -37,7 +38,6 @@ public class Game {
     private Thread engineThread;
     private Thread panelThread;
     private Thread pingThread;
-    public int fov;
 
     public Game(int fov, int maxWorldCol, int maxWorldRow, int fps, int ups) {
         this.fov = fov;
@@ -65,10 +65,12 @@ public class Game {
 
     public void startNetThreads(boolean isServer) {
         clientThread = new Thread(client);
+        window.setTitle("Angry ball CLIENT");
         if (isServer) {
             server = new Server();
             serverThread = new Thread(server);
             serverThread.start();
+            window.setTitle("Angry ball SERVER");
         }
         clientThread.start();
         ping = new Ping(this);
