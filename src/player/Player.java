@@ -60,9 +60,8 @@ public class Player {
         int leftPosY = centerPosY;
 
         //TILES
-        int centerTileX = (centerPosX - 8) / 16;
-        int centerTileY = (centerPosY - 8) / 16;
-
+        int centerTileX = (centerPosX + 8) / 16;
+        int centerTileY = (centerPosY + 8) / 16;
 
 
         System.out.println("CENTER [" + centerTileX + "," + centerTileY + "]");
