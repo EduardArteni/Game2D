@@ -6,29 +6,44 @@ import java.awt.*;
 
 public class Player {
     public Point screenPosition;
-    public Rectangle hitbox;
     private Game game;
     private Point position;
+    private boolean upCollide, downCollide, rightCollide, leftCollide;
 
     public Player(Game game) {
         this.game = game;
-        this.position = new Point(0, 0);
+        this.position = new Point(88, 88);
         this.screenPosition = new Point(game.getScreenDimension().width / 2, game.getScreenDimension().height / 2);
-        this.hitbox = new Rectangle(0, 0, 16, 16);
     }
 
     public void update() {
         if (game.keyHandler.upPressed) {
-            this.position.y -= 1 * (120 / game.currentUps);
+            if (!upCollide)
+                this.position.y -= 1 * (120 / game.currentUps);
+            if (this.position.y < 0) {
+                this.position.y = 0;
+            }
         }
         if (game.keyHandler.downPressed) {
-            this.position.y += 1 * (120 / game.currentUps);
+            if (!downCollide)
+                this.position.y += 1 * (120 / game.currentUps);
+            if (this.position.y > (game.getMaxWorldRow() * 16) - 16) {
+                this.position.y = (game.getMaxWorldRow() * 16) - 16;
+            }
         }
         if (game.keyHandler.rightPressed) {
-            this.position.x += 1 * (120 / game.currentUps);
+            if (!rightCollide)
+                this.position.x += 1 * (120 / game.currentUps);
+            if (this.position.x > (game.getMaxWorldCol() * 16) - 16) {
+                this.position.x = (game.getMaxWorldCol() * 16 - 16);
+            }
         }
         if (game.keyHandler.leftPressed) {
-            this.position.x -= 1 * (120 / game.currentUps);
+            if (!leftCollide)
+                this.position.x -= 1 * (120 / game.currentUps);
+            if (this.position.x < 0) {
+                this.position.x = 0;
+            }
         }
         checkCollision();
     }
@@ -42,34 +57,59 @@ public class Player {
     }
 
     public void checkCollision() {
-        //CENTER
-        int centerPosX = position.x;
-        int centerPosY = position.y;
+        int centerPosX = this.position.x + 8;
+        int centerPosY = this.position.y + 8;
 
-        //EDGES
-        int upPosX = centerPosX;
-        int upPosY = centerPosY - this.hitbox.height / 2;
+        //int upCenterX = centerPosX;
+        int upCenterY = centerPosY - 8;
 
-        int downPosX = centerPosX;
-        int downPosY = centerPosY + this.hitbox.height / 2;
+        //int downCenterX = centerPosX;
+        int downCenterY = centerPosY + 8;
 
-        int rightPosX = centerPosX + this.hitbox.width / 2;
-        int rightPosY = centerPosY;
+        int rightCenterX = centerPosX + 8;
+        //int rightCenterY = centerPosY;
 
-        int leftPosX = centerPosX - this.hitbox.width / 2;
-        int leftPosY = centerPosY;
+        int leftCenterX = centerPosX - 8;
+        //int leftCenterY = centerPosY;
 
-        //TILES
-        int centerTileX = (centerPosX + 8) / 16;
-        int centerTileY = (centerPosY + 8) / 16;
+        //TILE
+        int centerTileX = centerPosX / 16;
+        int centerTileY = centerPosY / 16;
 
+        int upTileY = upCenterY / 16;
+        int downTileY = downCenterY / 16;
+        int rightTileX = rightCenterX / 16;
+        int leftTileX = leftCenterX / 16;
 
-        System.out.println("CENTER [" + centerTileX + "," + centerTileY + "]");
-//        System.out.print("UP [" + upPosX + "," + upPosY + "] ");
-//        System.out.print("DOWN [" + downPosX + "," + downPosY + "] ");
-//        System.out.print("RIGHT [" + rightPosX + "," + rightPosY + "] ");
-//        System.out.println("LEFT [" + leftPosX + "," + leftPosY + "].");
+        if (game.getMap()[centerTileX][upTileY] == 1) {
+            upCollide = true;
+        } else {
+            upCollide = false;
+        }
+        if (game.getMap()[centerTileX][downTileY] == 1) {
+            downCollide = true;
+        } else {
+            downCollide = false;
+        }
+        if (game.getMap()[rightTileX][centerTileY] == 1) {
+            rightCollide = true;
+        } else {
+            rightCollide = false;
+        }
+        if (game.getMap()[leftTileX][centerTileY] == 1) {
+            leftCollide = true;
+        } else {
+            leftCollide = false;
+        }
+
+        System.out.print("CENTER [" + game.getMap()[centerTileX][centerTileY] + "] ");
+        System.out.print("UP [" + game.getMap()[centerTileX][upTileY] + "] ");
+        System.out.print("DOWN [" + game.getMap()[centerTileX][downTileY] + "] ");
+        System.out.print("RIGHT [" + game.getMap()[rightTileX][centerTileY] + "] ");
+        System.out.println("LEFT [" + game.getMap()[leftTileX][centerTileY] + "].");
 
 
     }
+
+
 }

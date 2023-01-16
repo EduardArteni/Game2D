@@ -95,7 +95,23 @@ public class Game {
     }
 
     private int[][] loadMap(String path) {
-        return new int[maxWorldCol][maxWorldRow];
+        int[][] genMap = new int[maxWorldCol][maxWorldRow];
+        genMap[4][4] = 1;
+        genMap[5][4] = 1;
+        genMap[6][4] = 1;
+        genMap[7][4] = 1;
+
+        genMap[4][5] = 1;
+        genMap[4][6] = 1;
+
+        genMap[7][5] = 1;
+        genMap[7][6] = 1;
+
+        genMap[4][7] = 1;
+        genMap[5][7] = 1;
+        genMap[6][7] = 1;
+        genMap[7][7] = 1;
+        return genMap;
     }
 
     public Dimension getScreenDimension() {

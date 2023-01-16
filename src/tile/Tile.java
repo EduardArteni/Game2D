@@ -15,4 +15,6 @@ public class Tile {
     public Tile(String path) throws IOException {
         image = ImageIO.read(new File(path));
     }
+
+
 }
